@@ -1,0 +1,4 @@
+2026-02-10 17:43:29,587 | INFO | LoginPage | Opening login page: https://www.saucedemo.com
+2026-02-10 17:43:31,143 | INFO | LoginPage | Entering username: standard_user
+2026-02-10 17:43:31,723 | INFO | LoginPage | Entering password
+2026-02-10 17:43:32,266 | INFO | LoginPage | Clicking login button
