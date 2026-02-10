@@ -1,16 +1,11 @@
-from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
 from pages.checkout_overview_page import CheckoutOverviewPage
 from pages.checkout_complete_page import CheckoutCompletePage
-from utils.config import BASE_URL, APP_USERNAME, APP_PASSWORD
 
-def test_complete_order_flow(page):
-    # Login
-    login = LoginPage(page)
-    login.open(BASE_URL)
-    login.login(APP_USERNAME, APP_PASSWORD)
+def test_cart_to_checkout(logged_in_page):
+    page = logged_in_page   # alias for clarity
 
     # Inventory
     inventory = InventoryPage(page)
@@ -30,7 +25,7 @@ def test_complete_order_flow(page):
     checkout.fill_customer_info("Sunit", "Mondal", "700001")
     checkout.continue_checkout()
 
-    # Checkout - Step Two (Overview)
+    # Checkout - Step Two
     overview = CheckoutOverviewPage(page)
     overview.wait_for_page()
     overview.click_finish()
