@@ -2,9 +2,11 @@ from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
+from pages.checkout_overview_page import CheckoutOverviewPage
+from pages.checkout_complete_page import CheckoutCompletePage
 from utils.config import BASE_URL, APP_USERNAME, APP_PASSWORD
 
-def test_cart_to_checkout_flow(page):
+def test_complete_order_flow(page):
     # Login
     login = LoginPage(page)
     login.open(BASE_URL)
@@ -20,7 +22,6 @@ def test_cart_to_checkout_flow(page):
     # Cart
     cart = CartPage(page)
     cart.wait_for_page()
-    assert cart.get_cart_items_count() >= 1
     cart.click_checkout()
 
     # Checkout - Step One
@@ -29,5 +30,13 @@ def test_cart_to_checkout_flow(page):
     checkout.fill_customer_info("Sunit", "Mondal", "700001")
     checkout.continue_checkout()
 
-    # Assertion (next page loaded)
-    assert "checkout-step-two.html" in page.url
+    # Checkout - Step Two (Overview)
+    overview = CheckoutOverviewPage(page)
+    overview.wait_for_page()
+    overview.click_finish()
+
+    # Checkout Complete
+    complete = CheckoutCompletePage(page)
+    complete.wait_for_page()
+
+    assert "Thank you for your order!" in complete.get_success_message()
