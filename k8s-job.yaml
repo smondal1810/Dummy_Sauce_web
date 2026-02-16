@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dummy-sauce-job
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: dummy-sauce-container
+        image: sunit1810/dummy-sauce-tests:1.0
+        imagePullPolicy: Always
